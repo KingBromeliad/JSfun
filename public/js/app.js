@@ -1,10 +1,10 @@
 const Foo = { template: '<div>foo</div>' }
 const Bar = { template: '<div>bar</div>' }
-var socket = io('http://socketserver.com:1923');
-
+var socket = io('http://localhost:3000');
 
 // Vue use modules
 Vue.use(VueSocketIOExt, socket);
+
 
 /****************************** 
             ROUTES
@@ -33,5 +33,19 @@ Vue.component('button-counter', {
 })
 
 const app = new Vue({
+  el: '#app',
+  data: {
+    name: 'jojo'
+  },
+  mounted: function(){
+    axios.get('http://localhost:3000/axios').then((response) => {
+      console.log(response.data)
+    })
+  },
+  sockets: {
+    connect() {
+      console.log('socket connected')
+    }
+  },
     router
-  }).$mount('#app')
+  }).$mount()
